@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/external-person/.*"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "{\n  \"id\": {{request.pathSegments.[1]}},\n  \"name\": \"João Silva\",\n  \"age\": 30,\n  \"email\": \"joao.silva@example.com\"\n}",
+    "delayDistribution": {
+      "type": "uniform",
+      "lower": 70,
+      "upper": 600
+    }
+  }
+}
+
