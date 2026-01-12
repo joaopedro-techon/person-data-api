@@ -7,7 +7,7 @@ Projeto Spring Boot com Java 11 que expõe um endpoint GET para retornar dados d
 - Java 11
 - Spring Boot 2.7.18
 - Spring Cloud OpenFeign
-- WireMock (para mock da API externa)
+- Mock API (Spring Boot - alta performance, substitui WireMock)
 - Spring Boot Actuator
 - Micrometer Prometheus
 - Prometheus
@@ -45,28 +45,49 @@ Projeto Spring Boot com Java 11 que expõe um endpoint GET para retornar dados d
 
 ## Como Executar
 
-### 1. Iniciar os serviços (WireMock, Prometheus e Grafana)
+### Opção 1: Tudo via Docker (se não tiver problemas de conexão)
 
 ```bash
+# 1. Iniciar Mock API, Prometheus e Grafana
 docker-compose up -d
-```
 
-### 2. Executar a aplicação Spring Boot
-
-```bash
+# 2. Executar a aplicação Spring Boot principal
 mvn spring-boot:run
 ```
 
-A aplicação estará disponível em: `http://localhost:8080`
+### Opção 2: Mock API local + Docker para outros serviços (RECOMENDADO - Evita problemas de proxy)
+
+```bash
+# 1. Iniciar Mock API localmente (mais rápido e evita problemas de Docker/proxy)
+cd mock-api
+mvn spring-boot:run
+# Ou no Windows: run-local.bat
+# Ou no Linux/Mac: ./run-local.sh
+
+# 2. Em outro terminal, iniciar Prometheus e Grafana (sem Mock API)
+# Primeiro, edite docker-compose.yml e comente/remova a dependência do mock-api no prometheus
+docker-compose up -d prometheus grafana
+
+# 3. Em outro terminal, executar a aplicação Spring Boot principal
+mvn spring-boot:run
+```
+
+**Nota**: Se você tiver problemas de proxy/rede com Docker (erro ao baixar imagens), use esta opção!
 
 ### 3. Acessar os serviços
 
-- **API**: http://localhost:8080
-- **WireMock**: http://localhost:8089
+- **API Principal**: http://localhost:8080
+- **Mock API Externa**: http://localhost:8089
 - **Prometheus**: http://localhost:9090
 - **Grafana**: http://localhost:3000
   - Usuário: `admin`
   - Senha: `admin`
+
+### Solução de Problemas
+
+**Se tiver erro ao construir Docker para Mock API:**
+- Use a Opção 2 acima (rodar Mock API localmente)
+- Veja mais detalhes em `mock-api/README.md`
 
 ## Endpoints
 
@@ -149,8 +170,10 @@ mvn clean package
 
 ## Observações
 
-- O WireMock está configurado para responder na porta 8089
+- A Mock API está configurada para responder na porta 8089 com latência de 500ms
+- A Mock API suporta 5000+ TPS (transações por segundo)
 - O Prometheus faz scrape a cada 15 segundos
 - O Grafana atualiza o dashboard a cada 10 segundos
 - As métricas de threads são coletadas automaticamente via JMX
+- Métricas do pool de conexões HTTP (Feign) estão disponíveis em `/actuator/prometheus`
 

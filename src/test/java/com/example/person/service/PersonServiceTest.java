@@ -29,9 +29,9 @@ class PersonServiceTest {
 
     @BeforeEach
     void setUp() {
-        wireMockServer = new WireMockServer(8089);
+        wireMockServer = new WireMockServer(8088);
         wireMockServer.start();
-        WireMock.configureFor("localhost", 8089);
+        WireMock.configureFor("localhost", 8088);
     }
 
     @AfterEach

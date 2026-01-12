@@ -1,18 +1,42 @@
-version: '3.8'
-
 services:
-  wiremock:
-    image: wiremock/wiremock:3.3.1
-    container_name: wiremock
+  # Mock External API - High Performance Spring Boot API
+  # ⚠️ RECOMENDADO: Rode localmente para evitar problemas de Docker/proxy!
+  # Windows: cd mock-api && .\run-local.bat
+  # Linux/Mac: cd mock-api && ./run-local.sh
+  #
+  # Se realmente precisar usar Docker, descomente abaixo:
+  mock-api:
+    build:
+      context: ./mock-api
+      dockerfile: Dockerfile
+    container_name: mock-external-api
     ports:
-      - "8089:8080"
-    volumes:
-      - ./wiremock/mappings:/home/wiremock/mappings
-      - ./wiremock/__files:/home/wiremock/__files
-    command: ["--global-response-templating", "--verbose"]
+      - "8089:8089"
+    environment:
+      - JAVA_OPTS=-Xms512m -Xmx2g -XX:+UseG1GC -XX:MaxGCPauseMillis=200
     networks:
       - monitoring-network
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8089/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  # WireMock (comentado - usando mock-api ao invés)
+  # wiremock:
+  #   image: wiremock/wiremock:3.3.1
+  #   container_name: wiremock
+  #   ports:
+  #     - "8089:8080"
+  #   volumes:
+  #     - ./wiremock/mappings:/home/wiremock/mappings
+  #     - ./wiremock/__files:/home/wiremock/__files
+  #   command: ["--global-response-templating", "--verbose", "--container-threads", "200"]
+  #   networks:
+  #     - monitoring-network
+  #   restart: unless-stopped
 
   prometheus:
     image: prom/prometheus:v2.45.0
@@ -32,7 +56,7 @@ services:
     networks:
       - monitoring-network
     depends_on:
-      - wiremock
+      - mock-api
     restart: unless-stopped
 
   grafana:
