@@ -43,9 +43,11 @@ brew install k6
 k6 version
 ```
 
-## 🚀 Teste Principal: 6000 TPS por 30 minutos
+## 🚀 Testes Disponíveis
 
-### Executar o teste
+### 1. Teste de Alta Carga: 6000 TPS por 30 minutos
+
+#### Executar o teste
 
 ```bash
 # Teste básico (usa http://localhost:8080)
@@ -58,7 +60,7 @@ k6 run -e BASE_URL=http://localhost:8080 person-api-6000-tps.js
 k6 run -e BASE_URL=http://192.168.1.100:8080 person-api-6000-tps.js
 ```
 
-### Perfil do Teste
+#### Perfil do Teste
 
 - **Ramp-up**: 0 → 6000 TPS em 6 minutos (gradual)
 - **Carga Sustentada**: 6000 TPS por 30 minutos
@@ -66,7 +68,7 @@ k6 run -e BASE_URL=http://192.168.1.100:8080 person-api-6000-tps.js
 - **Duração Total**: ~38 minutos
 - **Máximo de VUs**: 10000 (para suportar 6000 TPS)
 
-### Estrutura do Teste
+#### Estrutura do Teste
 
 ```
 Minuto 0-1:   0 → 1000 TPS
@@ -79,6 +81,52 @@ Minuto 6-36:  6000 TPS (sustentado)
 Minuto 36-37: 6000 → 3000 TPS
 Minuto 37-38: 3000 → 0 TPS
 ```
+
+---
+
+### 2. Teste Otimizado: 1000 TPS com Menor Quantidade de VUs
+
+#### Executar o teste
+
+```bash
+# Teste básico (usa http://localhost:8080)
+k6 run person-api-1000-tps.js
+
+# Com URL customizada
+k6 run -e BASE_URL=http://localhost:8080 person-api-1000-tps.js
+
+# Com URL remota
+k6 run -e BASE_URL=http://192.168.1.100:8080 person-api-1000-tps.js
+```
+
+#### Perfil do Teste
+
+- **Ramp-up**: 0 → 1000 TPS em 3 minutos (gradual)
+- **Carga Sustentada**: 1000 TPS por 15 minutos
+- **Ramp-down**: 1000 → 0 TPS em 1 minuto
+- **Duração Total**: ~20 minutos
+- **VUs Iniciais**: 50 (menor quantidade)
+- **Máximo de VUs**: 2000 (otimizado para 1000 TPS)
+
+#### Estrutura do Teste
+
+```
+0-30s:        0 → 250 TPS
+30s-1m:       250 → 500 TPS
+1m-1m30s:    500 → 750 TPS
+1m30s-2m:    750 → 1000 TPS
+2m-3m:       1000 TPS (estabilização)
+3m-18m:      1000 TPS (sustentado por 15 minutos)
+18m-18m30s:  1000 → 500 TPS
+18m30s-19m:  500 → 0 TPS
+```
+
+#### Vantagens deste Teste
+
+- ✅ **Menor consumo de recursos**: Usa menos VUs (50-2000 vs 100-10000)
+- ✅ **Mais rápido**: Duração menor (20min vs 38min)
+- ✅ **Ideal para validação**: Perfeito para testar antes do teste de alta carga
+- ✅ **Eficiente**: K6 ajusta automaticamente o número de VUs para atingir 1000 TPS
 
 ## 📊 Métricas Coletadas
 
@@ -103,6 +151,8 @@ Minuto 37-38: 3000 → 0 TPS
 
 ## 🎯 Thresholds (Limites de Sucesso)
 
+### Teste 6000 TPS
+
 O teste **falha** se:
 
 - ❌ **50% das requisições** > 500ms
@@ -112,6 +162,18 @@ O teste **falha** se:
 - ❌ **Taxa de erros HTTP** > 5%
 - ❌ **Taxa de erros (checks)** > 5%
 - ❌ **Throughput** < 5000 req/s (permite margem de 1000)
+
+### Teste 1000 TPS
+
+O teste **falha** se:
+
+- ❌ **50% das requisições** > 500ms
+- ❌ **75% das requisições** > 1 segundo
+- ❌ **95% das requisições** > 2 segundos
+- ❌ **99% das requisições** > 5 segundos
+- ❌ **Taxa de erros HTTP** > 5%
+- ❌ **Taxa de erros (checks)** > 5%
+- ❌ **Throughput** < 900 req/s (permite margem de 100)
 
 ## 📈 Saída de Exemplo
 
@@ -317,7 +379,7 @@ k6 run --out influxdb=http://localhost:8086/k6 person-api-6000-tps.js
 
 1. **Execute em máquina dedicada**: K6 consome recursos, execute em máquina separada da API
 2. **Monitore durante o teste**: Use Grafana/Prometheus para ver métricas em tempo real
-3. **Comece com carga menor**: Teste com 1000 TPS antes de ir para 6000
+3. **Comece com carga menor**: Use `person-api-1000-tps.js` antes de testar com 6000 TPS
 4. **Use múltiplas saídas**: Exporte JSON + InfluxDB para análise completa
 5. **Ajuste thresholds**: Ajuste os limites conforme seus SLAs
 

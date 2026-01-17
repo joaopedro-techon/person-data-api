@@ -50,6 +50,8 @@
             <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
 
+        <!-- OpenTelemetry Java Agent será usado via -javaagent (não precisa de dependências) -->
+
         <!-- Lombok (opcional, para reduzir boilerplate) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
