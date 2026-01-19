@@ -3,6 +3,10 @@ package com.example.mockapi.controller;
 import com.example.mockapi.dto.*;
 import com.example.mockapi.dto.BirthCityResponse.Coordinates;
 import com.example.mockapi.dto.PhoneResponse.PhoneInfo;
+import io.opentelemetry.api.GlobalOpenTelemetry;
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.Tracer;
+import io.opentelemetry.context.Scope;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,33 +21,62 @@ import java.util.concurrent.TimeUnit;
 @RestController
 public class MockPersonController {
 
-    private static final int FIXED_LATENCY_MS = 500;
+    private static final int FIXED_LATENCY_MS = 200;
+    
+    // Tracer obtido do OpenTelemetry Java Agent
+    private final Tracer tracer;
+
+    public MockPersonController() {
+        // Obtém o Tracer do OpenTelemetry global (inicializado pelo Java Agent)
+        this.tracer = GlobalOpenTelemetry.getTracer("mock-api", "1.0.0");
+    }
 
     @GetMapping("/external-person/{id}")
     public PersonResponse getPerson(@PathVariable Long id) {
-        long startTime = System.currentTimeMillis();
+        // O OpenTelemetry Agent cria automaticamente o span HTTP
+        // Aqui criamos spans filhos dentro do contexto existente
         
-        try {
+        // Cria um span filho para a simulação de latência
+        Span latencySpan = tracer.spanBuilder("mock-api.simulateLatency")
+                .setAttribute("latency.ms", FIXED_LATENCY_MS)
+                .startSpan();
+        
+        try (Scope latencyScope = latencySpan.makeCurrent()) {
             // Simula latência fixa de 500ms
             TimeUnit.MILLISECONDS.sleep(FIXED_LATENCY_MS);
-            
-            PersonResponse response = new PersonResponse(
+            latencySpan.addEvent("Latency simulation completed");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            latencySpan.recordException(e);
+            latencySpan.setStatus(io.opentelemetry.api.trace.StatusCode.ERROR, "Interrupted");
+            log.error("Thread interrupted during latency simulation", e);
+            throw new RuntimeException("Latency simulation interrupted", e);
+        } finally {
+            latencySpan.end();
+        }
+        
+        // Cria um span filho para construção da resposta
+        Span buildResponseSpan = tracer.spanBuilder("mock-api.buildResponse")
+                .setAttribute("response.type", "PersonResponse")
+                .startSpan();
+        
+        PersonResponse response;
+        try (Scope buildScope = buildResponseSpan.makeCurrent()) {
+            response = new PersonResponse(
                 id,
                 "João Silva",
                 30,
                 "joao.silva@example.com"
             );
             
-            long duration = System.currentTimeMillis() - startTime;
-            log.debug("Request processed for id={} in {}ms", id, duration);
-            
-            return response;
-            
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            log.error("Thread interrupted while processing request for id={}", id, e);
-            throw new RuntimeException("Request processing interrupted", e);
+            buildResponseSpan.setAttribute("person.name", response.getName());
+            buildResponseSpan.setAttribute("person.age", response.getAge());
+            buildResponseSpan.addEvent("Response built successfully");
+        } finally {
+            buildResponseSpan.end();
         }
+        
+        return response;
     }
 
     // 1 - Buscar dados do endereço de um cliente

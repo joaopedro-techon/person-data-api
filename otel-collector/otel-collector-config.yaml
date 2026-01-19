@@ -1,0 +1,51 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  # Tail-based sampling: decide após ver o trace completo
+  tail_sampling:
+    decision_wait: 10s          # Aguarda 10s para coletar spans do trace
+    num_traces: 20000            # Máximo de traces em memória
+    expected_new_traces_per_sec: 1000
+    
+    policies:
+      # 1. SEMPRE coletar ERROS
+      - name: errors-only
+        type: status_code
+        status_code:
+          status_codes: [ERROR]
+      
+      # 2. Coletar requests > 100ms
+      - name: slow-requests
+        type: latency
+        latency:
+          threshold_ms: 100
+
+  # Batch processor para melhor performance
+  batch:
+    timeout: 1s
+    send_batch_size: 1024
+
+exporters:
+  # Enviar para Jaeger usando o exporter nativo do Jaeger
+  # Usa o formato jaeger.proto na porta 14250
+  jaeger:
+    endpoint: jaeger:14250
+    tls:
+      insecure: true
+
+  # Logging para debug (opcional)
+  logging:
+    loglevel: info
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [tail_sampling, batch]
+      exporters: [jaeger, logging]

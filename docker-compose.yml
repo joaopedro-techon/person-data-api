@@ -7,15 +7,26 @@ services:
   # Se realmente precisar usar Docker, descomente abaixo:
   mock-api:
     build:
-      context: ./mock-api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./mock-api/Dockerfile
+      args:
+        - OTEL_AGENT_PATH=./opentelemetry-javaagent.jar
     container_name: mock-external-api
     ports:
       - "8089:8089"
     environment:
       - JAVA_OPTS=-Xms512m -Xmx2g -XX:+UseG1GC -XX:MaxGCPauseMillis=200
+      - OTEL_SERVICE_NAME=mock-api
+      - OTEL_TRACES_EXPORTER=otlp
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
+      - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+      - OTEL_METRICS_EXPORTER=none
+      - OTEL_LOGS_EXPORTER=none
+      - OTEL_TRACES_SAMPLER=always_on
     networks:
       - monitoring-network
+    depends_on:
+      - jaeger
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8089/actuator/health || exit 1"]
