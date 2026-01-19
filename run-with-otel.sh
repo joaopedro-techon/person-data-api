@@ -20,7 +20,8 @@ fi
 
 echo "Using OpenTelemetry Java Agent: $AGENT_FILE"
 echo "Service Name: person-api"
-echo "Jaeger Endpoint: http://localhost:4317"
+echo "Collector Endpoint: http://localhost:4318 (HTTP)"
+echo "Sampling: Tail-based (latency > 300ms or errors)"
 echo ""
 echo "Starting application..."
 echo ""
@@ -28,7 +29,8 @@ echo ""
 # Configurações do OpenTelemetry
 export OTEL_SERVICE_NAME=person-api
 export OTEL_TRACES_EXPORTER=otlp
-export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 export OTEL_METRICS_EXPORTER=none
 export OTEL_LOGS_EXPORTER=none
 
@@ -38,6 +40,7 @@ java \
   -Dotel.service.name=$OTEL_SERVICE_NAME \
   -Dotel.traces.exporter=$OTEL_TRACES_EXPORTER \
   -Dotel.exporter.otlp.endpoint=$OTEL_EXPORTER_OTLP_ENDPOINT \
+  -Dotel.exporter.otlp.protocol=$OTEL_EXPORTER_OTLP_PROTOCOL \
   -Dotel.metrics.exporter=$OTEL_METRICS_EXPORTER \
   -Dotel.logs.exporter=$OTEL_LOGS_EXPORTER \
   -jar target/person-api-0.0.1-SNAPSHOT.jar

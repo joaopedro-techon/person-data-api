@@ -20,11 +20,11 @@ processors:
         status_code:
           status_codes: [ERROR]
       
-      # 2. Coletar requests > 100ms
+      # 2. Coletar requests com latência > 300ms
       - name: slow-requests
         type: latency
         latency:
-          threshold_ms: 100
+          threshold_ms: 300
 
   # Batch processor para melhor performance
   batch:
@@ -32,10 +32,10 @@ processors:
     send_batch_size: 1024
 
 exporters:
-  # Enviar para Jaeger usando o exporter nativo do Jaeger
-  # Usa o formato jaeger.proto na porta 14250
-  jaeger:
-    endpoint: jaeger:14250
+  # Enviar para Jaeger via OTLP gRPC (porta 4317)
+  # O Jaeger all-in-one com COLLECTOR_OTLP_ENABLED=true aceita OTLP na porta 4317
+  otlp:
+    endpoint: jaeger:4317
     tls:
       insecure: true
 
@@ -48,4 +48,4 @@ service:
     traces:
       receivers: [otlp]
       processors: [tail_sampling, batch]
-      exporters: [jaeger, logging]
+      exporters: [otlp, logging]
