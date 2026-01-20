@@ -82,12 +82,34 @@ public class MockPersonController {
     // 1 - Buscar dados do endereço de um cliente
     @GetMapping("/external-person/{id}/address")
     public AddressResponse getAddress(@PathVariable Long id) {
-        long startTime = System.currentTimeMillis();
+        // Span para simulação de latência
+        Span latencySpan = tracer.spanBuilder("mock-api.simulateLatency")
+                .setAttribute("latency.ms", FIXED_LATENCY_MS)
+                .setAttribute("endpoint", "address")
+                .startSpan();
         
-        try {
+        try (Scope latencyScope = latencySpan.makeCurrent()) {
             TimeUnit.MILLISECONDS.sleep(FIXED_LATENCY_MS);
-            
-            AddressResponse response = new AddressResponse(
+            latencySpan.addEvent("Latency simulation completed");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            latencySpan.recordException(e);
+            latencySpan.setStatus(io.opentelemetry.api.trace.StatusCode.ERROR, "Interrupted");
+            log.error("Thread interrupted during latency simulation", e);
+            throw new RuntimeException("Latency simulation interrupted", e);
+        } finally {
+            latencySpan.end();
+        }
+        
+        // Span para construção da resposta
+        Span buildResponseSpan = tracer.spanBuilder("mock-api.buildResponse")
+                .setAttribute("response.type", "AddressResponse")
+                .setAttribute("person.id", id)
+                .startSpan();
+        
+        AddressResponse response;
+        try (Scope buildScope = buildResponseSpan.makeCurrent()) {
+            response = new AddressResponse(
                 id,
                 "Rua das Flores",
                 "123",
@@ -99,109 +121,190 @@ public class MockPersonController {
                 "Brasil"
             );
             
-            long duration = System.currentTimeMillis() - startTime;
-            log.debug("Address request processed for id={} in {}ms", id, duration);
-            
-            return response;
-            
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            log.error("Thread interrupted while processing address request for id={}", id, e);
-            throw new RuntimeException("Request processing interrupted", e);
+            buildResponseSpan.setAttribute("address.city", response.getCity());
+            buildResponseSpan.setAttribute("address.state", response.getState());
+            buildResponseSpan.setAttribute("address.zipCode", response.getZipCode());
+            buildResponseSpan.addEvent("Response built successfully");
+        } finally {
+            buildResponseSpan.end();
         }
+        
+        return response;
     }
 
     // 2 - Buscar dados referente a data de nascimento do cliente
     @GetMapping("/external-person/{id}/birth-date")
     public BirthDateResponse getBirthDate(@PathVariable Long id) {
-        long startTime = System.currentTimeMillis();
+        // Span para simulação de latência
+        Span latencySpan = tracer.spanBuilder("mock-api.simulateLatency")
+                .setAttribute("latency.ms", FIXED_LATENCY_MS)
+                .setAttribute("endpoint", "birth-date")
+                .startSpan();
         
-        try {
+        try (Scope latencyScope = latencySpan.makeCurrent()) {
             TimeUnit.MILLISECONDS.sleep(FIXED_LATENCY_MS);
-            
+            latencySpan.addEvent("Latency simulation completed");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            latencySpan.recordException(e);
+            latencySpan.setStatus(io.opentelemetry.api.trace.StatusCode.ERROR, "Interrupted");
+            log.error("Thread interrupted during latency simulation", e);
+            throw new RuntimeException("Latency simulation interrupted", e);
+        } finally {
+            latencySpan.end();
+        }
+        
+        // Span para construção da resposta
+        Span buildResponseSpan = tracer.spanBuilder("mock-api.buildResponse")
+                .setAttribute("response.type", "BirthDateResponse")
+                .setAttribute("person.id", id)
+                .startSpan();
+        
+        BirthDateResponse response;
+        try (Scope buildScope = buildResponseSpan.makeCurrent()) {
             LocalDate birthDate = LocalDate.of(1993, 5, 15);
-            BirthDateResponse response = new BirthDateResponse(
+            response = new BirthDateResponse(
                 id,
                 birthDate,
                 30,
                 "Touro"
             );
             
-            long duration = System.currentTimeMillis() - startTime;
-            log.debug("Birth date request processed for id={} in {}ms", id, duration);
-            
-            return response;
-            
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            log.error("Thread interrupted while processing birth date request for id={}", id, e);
-            throw new RuntimeException("Request processing interrupted", e);
+            buildResponseSpan.setAttribute("birth.date", birthDate.toString());
+            buildResponseSpan.setAttribute("person.age", response.getAge());
+            buildResponseSpan.setAttribute("zodiac.sign", response.getZodiacSign());
+            buildResponseSpan.addEvent("Response built successfully");
+        } finally {
+            buildResponseSpan.end();
         }
+        
+        return response;
     }
 
     // 3 - Buscar nomes do pai e mae do cliente
     @GetMapping("/external-person/{id}/parents")
     public ParentsResponse getParents(@PathVariable Long id) {
-        long startTime = System.currentTimeMillis();
+        // Span para simulação de latência
+        Span latencySpan = tracer.spanBuilder("mock-api.simulateLatency")
+                .setAttribute("latency.ms", FIXED_LATENCY_MS)
+                .setAttribute("endpoint", "parents")
+                .startSpan();
         
-        try {
+        try (Scope latencyScope = latencySpan.makeCurrent()) {
             TimeUnit.MILLISECONDS.sleep(FIXED_LATENCY_MS);
-            
-            ParentsResponse response = new ParentsResponse(
+            latencySpan.addEvent("Latency simulation completed");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            latencySpan.recordException(e);
+            latencySpan.setStatus(io.opentelemetry.api.trace.StatusCode.ERROR, "Interrupted");
+            log.error("Thread interrupted during latency simulation", e);
+            throw new RuntimeException("Latency simulation interrupted", e);
+        } finally {
+            latencySpan.end();
+        }
+        
+        // Span para construção da resposta
+        Span buildResponseSpan = tracer.spanBuilder("mock-api.buildResponse")
+                .setAttribute("response.type", "ParentsResponse")
+                .setAttribute("person.id", id)
+                .startSpan();
+        
+        ParentsResponse response;
+        try (Scope buildScope = buildResponseSpan.makeCurrent()) {
+            response = new ParentsResponse(
                 id,
                 "Carlos Silva",
                 "Maria Silva"
             );
             
-            long duration = System.currentTimeMillis() - startTime;
-            log.debug("Parents request processed for id={} in {}ms", id, duration);
-            
-            return response;
-            
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            log.error("Thread interrupted while processing parents request for id={}", id, e);
-            throw new RuntimeException("Request processing interrupted", e);
+            buildResponseSpan.setAttribute("father.name", response.getFatherName());
+            buildResponseSpan.setAttribute("mother.name", response.getMotherName());
+            buildResponseSpan.addEvent("Response built successfully");
+        } finally {
+            buildResponseSpan.end();
         }
+        
+        return response;
     }
 
     // 4 - Buscar dados de telefone do cliente
     @GetMapping("/external-person/{id}/phone")
     public PhoneResponse getPhone(@PathVariable Long id) {
-        long startTime = System.currentTimeMillis();
+        // Span para simulação de latência
+        Span latencySpan = tracer.spanBuilder("mock-api.simulateLatency")
+                .setAttribute("latency.ms", FIXED_LATENCY_MS)
+                .setAttribute("endpoint", "phone")
+                .startSpan();
         
-        try {
+        try (Scope latencyScope = latencySpan.makeCurrent()) {
             TimeUnit.MILLISECONDS.sleep(FIXED_LATENCY_MS);
-            
+            latencySpan.addEvent("Latency simulation completed");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            latencySpan.recordException(e);
+            latencySpan.setStatus(io.opentelemetry.api.trace.StatusCode.ERROR, "Interrupted");
+            log.error("Thread interrupted during latency simulation", e);
+            throw new RuntimeException("Latency simulation interrupted", e);
+        } finally {
+            latencySpan.end();
+        }
+        
+        // Span para construção da resposta
+        Span buildResponseSpan = tracer.spanBuilder("mock-api.buildResponse")
+                .setAttribute("response.type", "PhoneResponse")
+                .setAttribute("person.id", id)
+                .startSpan();
+        
+        PhoneResponse response;
+        try (Scope buildScope = buildResponseSpan.makeCurrent()) {
             List<PhoneInfo> phones = Arrays.asList(
                 new PhoneInfo("MOBILE", "11987654321", "+55"),
                 new PhoneInfo("HOME", "1133334444", "+55"),
                 new PhoneInfo("WORK", "1122223333", "+55")
             );
             
-            PhoneResponse response = new PhoneResponse(id, phones);
+            response = new PhoneResponse(id, phones);
             
-            long duration = System.currentTimeMillis() - startTime;
-            log.debug("Phone request processed for id={} in {}ms", id, duration);
-            
-            return response;
-            
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            log.error("Thread interrupted while processing phone request for id={}", id, e);
-            throw new RuntimeException("Request processing interrupted", e);
+            buildResponseSpan.setAttribute("phone.count", phones.size());
+            buildResponseSpan.addEvent("Response built successfully");
+        } finally {
+            buildResponseSpan.end();
         }
+        
+        return response;
     }
 
     // 5 - Buscar dados de escolaridade do cliente
     @GetMapping("/external-person/{id}/education")
     public EducationResponse getEducation(@PathVariable Long id) {
-        long startTime = System.currentTimeMillis();
+        // Span para simulação de latência
+        Span latencySpan = tracer.spanBuilder("mock-api.simulateLatency")
+                .setAttribute("latency.ms", FIXED_LATENCY_MS)
+                .setAttribute("endpoint", "education")
+                .startSpan();
         
-        try {
+        try (Scope latencyScope = latencySpan.makeCurrent()) {
             TimeUnit.MILLISECONDS.sleep(FIXED_LATENCY_MS);
-            
-            EducationResponse response = new EducationResponse(
+            latencySpan.addEvent("Latency simulation completed");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            latencySpan.recordException(e);
+            latencySpan.setStatus(io.opentelemetry.api.trace.StatusCode.ERROR, "Interrupted");
+            log.error("Thread interrupted during latency simulation", e);
+            throw new RuntimeException("Latency simulation interrupted", e);
+        } finally {
+            latencySpan.end();
+        }
+        
+        // Span para construção da resposta
+        Span buildResponseSpan = tracer.spanBuilder("mock-api.buildResponse")
+                .setAttribute("response.type", "EducationResponse")
+                .setAttribute("person.id", id)
+                .startSpan();
+        
+        EducationResponse response;
+        try (Scope buildScope = buildResponseSpan.makeCurrent()) {
+            response = new EducationResponse(
                 id,
                 "GRADUATE",
                 "Universidade de São Paulo",
@@ -210,28 +313,51 @@ public class MockPersonController {
                 true
             );
             
-            long duration = System.currentTimeMillis() - startTime;
-            log.debug("Education request processed for id={} in {}ms", id, duration);
-            
-            return response;
-            
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            log.error("Thread interrupted while processing education request for id={}", id, e);
-            throw new RuntimeException("Request processing interrupted", e);
+            buildResponseSpan.setAttribute("education.level", response.getEducationLevel());
+            buildResponseSpan.setAttribute("education.institution", response.getInstitution());
+            buildResponseSpan.setAttribute("education.course", response.getCourse());
+            buildResponseSpan.setAttribute("education.graduationYear", response.getGraduationYear());
+            buildResponseSpan.setAttribute("education.isCompleted", response.getIsCompleted());
+            buildResponseSpan.addEvent("Response built successfully");
+        } finally {
+            buildResponseSpan.end();
         }
+        
+        return response;
     }
 
     // 6 - Buscar cidade de nascimento do cliente
     @GetMapping("/external-person/{id}/birth-city")
     public BirthCityResponse getBirthCity(@PathVariable Long id) {
-        long startTime = System.currentTimeMillis();
+        // Span para simulação de latência
+        Span latencySpan = tracer.spanBuilder("mock-api.simulateLatency")
+                .setAttribute("latency.ms", FIXED_LATENCY_MS)
+                .setAttribute("endpoint", "birth-city")
+                .startSpan();
         
-        try {
+        try (Scope latencyScope = latencySpan.makeCurrent()) {
             TimeUnit.MILLISECONDS.sleep(FIXED_LATENCY_MS);
-            
+            latencySpan.addEvent("Latency simulation completed");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            latencySpan.recordException(e);
+            latencySpan.setStatus(io.opentelemetry.api.trace.StatusCode.ERROR, "Interrupted");
+            log.error("Thread interrupted during latency simulation", e);
+            throw new RuntimeException("Latency simulation interrupted", e);
+        } finally {
+            latencySpan.end();
+        }
+        
+        // Span para construção da resposta
+        Span buildResponseSpan = tracer.spanBuilder("mock-api.buildResponse")
+                .setAttribute("response.type", "BirthCityResponse")
+                .setAttribute("person.id", id)
+                .startSpan();
+        
+        BirthCityResponse response;
+        try (Scope buildScope = buildResponseSpan.makeCurrent()) {
             Coordinates coordinates = new Coordinates(-23.5505, -46.6333);
-            BirthCityResponse response = new BirthCityResponse(
+            response = new BirthCityResponse(
                 id,
                 "São Paulo",
                 "SP",
@@ -239,16 +365,17 @@ public class MockPersonController {
                 coordinates
             );
             
-            long duration = System.currentTimeMillis() - startTime;
-            log.debug("Birth city request processed for id={} in {}ms", id, duration);
-            
-            return response;
-            
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            log.error("Thread interrupted while processing birth city request for id={}", id, e);
-            throw new RuntimeException("Request processing interrupted", e);
+            buildResponseSpan.setAttribute("birth.city", response.getBirthCity());
+            buildResponseSpan.setAttribute("birth.state", response.getBirthState());
+            buildResponseSpan.setAttribute("birth.country", response.getBirthCountry());
+            buildResponseSpan.setAttribute("coordinates.latitude", coordinates.getLatitude());
+            buildResponseSpan.setAttribute("coordinates.longitude", coordinates.getLongitude());
+            buildResponseSpan.addEvent("Response built successfully");
+        } finally {
+            buildResponseSpan.end();
         }
+        
+        return response;
     }
 }
 
