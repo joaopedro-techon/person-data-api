@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.concurrent.TimeUnit;
+
 @Configuration
 public class FeignConfig {
 
@@ -64,6 +66,9 @@ public class FeignConfig {
         CloseableHttpClient httpClient = HttpClientBuilder.create()
                 .setConnectionManager(connectionManager)
                 .setDefaultRequestConfig(requestConfig)
+                .disableAutomaticRetries()
+                .evictIdleConnections(30, TimeUnit.SECONDS)
+                .evictExpiredConnections()
                 // Habilitar reuso de conexões (keep-alive) para melhor performance
                 .setKeepAliveStrategy((response, context) -> timeToLive)
                 .build();

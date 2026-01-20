@@ -19,6 +19,8 @@
 
     <properties>
         <java.version>11</java.version>
+        <!-- Manter TODAS as libs Resilience4j na mesma versão para evitar NoSuchMethodError -->
+        <resilience4j.version>1.7.0</resilience4j.version>
     </properties>
 
     <dependencies>
@@ -79,6 +81,13 @@
             <groupId>io.opentelemetry</groupId>
             <artifactId>opentelemetry-api</artifactId>
             <version>1.32.0</version>
+        </dependency>
+
+        <!-- Resilience4j - Bulkhead / Circuit Breaker / Retry -->
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-spring-boot2</artifactId>
+            <version>${resilience4j.version}</version>
         </dependency>
     </dependencies>
 
