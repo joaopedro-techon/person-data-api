@@ -1,6 +1,6 @@
 package com.example.person.api.controller;
 
-import com.example.person.api.dto.PersonDto;
+import com.example.person.api.dto.PersonCompleteDto;
 import com.example.person.service.PersonService;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -39,12 +39,12 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PersonDto> getPerson(@PathVariable("id") Long id) {
+    public ResponseEntity<PersonCompleteDto> getPerson(@PathVariable("id") Long id) {
         requestCounter.increment();
         Timer.Sample sample = Timer.start();
         
         try {
-            PersonDto person = personService.getPersonById(id);
+            PersonCompleteDto person = personService.getPersonById(id);
             if (person == null) {
                 errorCounter.increment();
                 return ResponseEntity.notFound().build();
