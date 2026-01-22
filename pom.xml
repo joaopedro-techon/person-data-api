@@ -37,10 +37,10 @@
         </dependency>
 
         <!-- Apache HttpClient para Feign (melhor throughput) -->
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-httpclient</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.github.openfeign</groupId>-->
+<!--            <artifactId>feign-httpclient</artifactId>-->
+<!--        </dependency>-->
 
         <!-- Actuator + Micrometer Prometheus -->
         <dependency>
