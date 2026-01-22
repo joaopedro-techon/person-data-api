@@ -42,6 +42,8 @@ public class AsyncConfig {
         // Nome das threads para facilitar debugging
         executor.setThreadNamePrefix(threadNamePrefix);
         
+        // Política de rejeição: CallerRunsPolicy executa na thread chamadora se o pool estiver cheio
+        // Isso evita perda de tarefas e ajuda a controlar a carga
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
         
         // Aguarda finalização de todas as tarefas ao desligar
