@@ -23,12 +23,253 @@
   "liveNow": false,
   "panels": [
     {
-      "collapsed": false,
+      "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
         "y": 0
+      },
+      "id": 26,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "purple"
+                  }
+                ]
+              },
+              "unit": "percentunit"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 0,
+            "y": 2
+          },
+          "id": 25,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "10.0.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
+              "editorMode": "code",
+              "expr": "tomcat_threads_busy_threads / tomcat_threads_config_max_threads",
+              "legendFormat": "Percentual Threads Ocupadas",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Threads Ocupadas",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "purple"
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Threads Ocupadas"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "red",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Máximo de Threads disponíveis"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "green",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 12,
+            "y": 2
+          },
+          "id": 27,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "10.0.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
+              "editorMode": "code",
+              "expr": "tomcat_threads_busy_threads",
+              "legendFormat": "Threads Ocupadas",
+              "range": true,
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
+              "editorMode": "code",
+              "expr": "tomcat_threads_config_max_threads",
+              "hide": false,
+              "legendFormat": "Máximo de Threads disponíveis",
+              "range": true,
+              "refId": "B"
+            }
+          ],
+          "title": "Threads ocupadas Vs Threads Max",
+          "type": "timeseries"
+        }
+      ],
+      "title": "Tomcat",
+      "type": "row"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 1
       },
       "id": 9,
       "panels": [],
@@ -89,7 +330,7 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "percentunit"
         },
         "overrides": []
       },
@@ -97,7 +338,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 1
+        "y": 2
       },
       "id": 21,
       "options": {
@@ -183,7 +424,7 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -191,7 +432,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 1
+        "y": 2
       },
       "id": 22,
       "options": {
@@ -214,39 +455,13 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_used_bytes{application=\"person-api\", area=\"heap\"}",
+          "expr": "(\r\n  sum(jvm_memory_used_bytes{application=\"person-api\", area=\"heap\"})\r\n/\r\n  sum(jvm_memory_max_bytes{application=\"person-api\", area=\"heap\"})\r\n) * 100",
           "legendFormat": "Heap Used",
           "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "expr": "jvm_memory_max_bytes{application=\"person-api\", area=\"heap\"}",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "Heap Max",
-          "range": true,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "expr": "jvm_memory_committed_bytes{application=\"person-api\", area=\"heap\"}",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "Heap Committed",
-          "range": true,
-          "refId": "C"
         }
       ],
-      "title": "Memória Heap",
+      "title": "Heap Usage (%)",
       "type": "timeseries"
     },
     {
@@ -314,7 +529,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 11
+        "y": 12
       },
       "id": 1,
       "options": {
@@ -352,7 +567,707 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 22
+      },
+      "id": 31,
+      "panels": [],
+      "title": "HTTP - Pool",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 0,
+        "y": 23
+      },
+      "id": 30,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "httpclient_pool_max_per_route",
+          "instant": false,
+          "legendFormat": "Max. Conexoes por Rota",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "httpclient_pool_max_total",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Max. Conexoes Totais",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "httpclient_pool_total",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Total de conexoes no pool (now)",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Configurações do Pool",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 23
+      },
+      "id": 33,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "httpclient_pool_available{application=\"person-api\"}",
+          "legendFormat": "Conexoes livres",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "httpclient_pool_leased{application=\"person-api\"}",
+          "hide": false,
+          "legendFormat": "Conexoes Usadas",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "httpclient_pool_pending{application=\"person-api\"}",
+          "hide": false,
+          "legendFormat": "Conexoes Pendentes",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "httpclient_pool_total{application=\"person-api\"}",
+          "hide": false,
+          "legendFormat": "Total de Conexoes",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "Analítico Pool",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 9,
+        "x": 0,
+        "y": 28
+      },
+      "id": 32,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "httpclient_pool_available",
+          "instant": false,
+          "legendFormat": "Disponíveis",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "httpclient_pool_leased",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Usadas",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "httpclient_pool_pending",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Pendentes",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Pool - Conexoes",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 9,
+        "y": 28
+      },
+      "id": 34,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "httpclient_pool_utilization_percent",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Pendentes",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Utilização das Conexões",
+      "type": "gauge"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 33
+      },
+      "id": 35,
+      "panels": [],
+      "title": "ThreadPoolTaskExecutor - Pool",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 34
+      },
+      "id": 36,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "executor_pool_core_threads{application=\"person-api\",name=\"externalApiTaskExecutor\"}",
+          "instant": false,
+          "legendFormat": "Core Pool Size",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "executor_pool_max_threads{application=\"person-api\",name=\"externalApiTaskExecutor\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Max. Pool Size",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "executor_queue_remaining_tasks{application=\"person-api\",name=\"externalApiTaskExecutor\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Espaço livre fila",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "executor_queued_tasks{application=\"person-api\",name=\"externalApiTaskExecutor\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Tarefas na fila",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "executor_active_threads{application=\"person-api\",name=\"externalApiTaskExecutor\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Threads Ativas",
+          "range": true,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "executor_pool_size_threads{application=\"person-api\",name=\"externalApiTaskExecutor\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Threads Criadas",
+          "range": true,
+          "refId": "F"
+        }
+      ],
+      "title": "Configurações do Pool",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "Tarefas na fila",
+                  "Threads Ativas",
+                  "Threads Criadas"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 34
+      },
+      "id": 37,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "executor_pool_core_threads{application=\"person-api\",name=\"externalApiTaskExecutor\"}",
+          "instant": false,
+          "legendFormat": "Core Pool Size",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "executor_pool_max_threads{application=\"person-api\",name=\"externalApiTaskExecutor\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Max. Pool Size",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "executor_queue_remaining_tasks{application=\"person-api\",name=\"externalApiTaskExecutor\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Espaço livre fila",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "executor_queued_tasks{application=\"person-api\",name=\"externalApiTaskExecutor\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Tarefas na fila",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "executor_active_threads{application=\"person-api\",name=\"externalApiTaskExecutor\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Threads Ativas",
+          "range": true,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "executor_pool_size_threads{application=\"person-api\",name=\"externalApiTaskExecutor\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Threads Criadas",
+          "range": true,
+          "refId": "F"
+        }
+      ],
+      "title": "Configurações do Pool",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 44
       },
       "id": 8,
       "panels": [],
@@ -397,7 +1312,7 @@
         "h": 4,
         "w": 2,
         "x": 0,
-        "y": 22
+        "y": 45
       },
       "id": 7,
       "options": {
@@ -453,70 +1368,6 @@
               }
             ]
           },
-          "unit": "locale"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 2,
-        "x": 2,
-        "y": 22
-      },
-      "id": 14,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "10.0.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "increase(person_endpoint_requests_total[$__range])",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Total de Chamadas API",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "decimals": 0,
-          "mappings": [],
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
           "unit": "reqps"
         },
         "overrides": []
@@ -524,8 +1375,8 @@
       "gridPos": {
         "h": 4,
         "w": 2,
-        "x": 4,
-        "y": 22
+        "x": 2,
+        "y": 45
       },
       "id": 20,
       "options": {
@@ -551,7 +1402,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "max_over_time(\r\n  rate(person_endpoint_requests_total{application=\"person-api\"}[1m])\r\n  [$__range:]\r\n)",
+          "expr": "max_over_time(\r\n  rate(person_endpoint_requests_total{application=\"person-api\"}[5m])\r\n  [$__range:]\r\n)",
           "range": true,
           "refId": "A"
         }
@@ -595,9 +1446,9 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 6,
-        "x": 6,
-        "y": 22
+        "w": 8,
+        "x": 4,
+        "y": 45
       },
       "id": 23,
       "options": {
@@ -621,7 +1472,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "max_over_time(\r\n  histogram_quantile(\r\n    0.50,\r\n    rate(person_endpoint_response_time_seconds_bucket{application=\"person-api\"}[5m])\r\n  )[15m:]\r\n) * 1000",
+          "expr": "max_over_time(\r\n  histogram_quantile(\r\n    0.50,\r\n    rate(person_endpoint_response_time_seconds_bucket{application=\"person-api\"}[5m])\r\n  )[$__range:]\r\n) * 1000",
           "legendFormat": "P50",
           "range": true,
           "refId": "A"
@@ -632,7 +1483,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "max_over_time(\r\n  histogram_quantile(\r\n    0.95,\r\n    rate(person_endpoint_response_time_seconds_bucket{application=\"person-api\"}[5m])\r\n  )[15m:]\r\n) * 1000",
+          "expr": "max_over_time(\r\n  histogram_quantile(\r\n    0.95,\r\n    rate(person_endpoint_response_time_seconds_bucket{application=\"person-api\"}[5m])\r\n  )[$__range:]\r\n) * 1000",
           "hide": false,
           "instant": false,
           "legendFormat": "P95",
@@ -645,7 +1496,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "max_over_time(\r\n  histogram_quantile(\r\n    0.99,\r\n    rate(person_endpoint_response_time_seconds_bucket{application=\"person-api\"}[5m])\r\n  )[15m:]\r\n) * 1000",
+          "expr": "max_over_time(\r\n  histogram_quantile(\r\n    0.99,\r\n    rate(person_endpoint_response_time_seconds_bucket{application=\"person-api\"}[5m])\r\n  )[$__range:]\r\n) * 1000",
           "hide": false,
           "instant": false,
           "legendFormat": "P99",
@@ -714,7 +1565,7 @@
         "h": 13,
         "w": 12,
         "x": 12,
-        "y": 22
+        "y": 45
       },
       "id": 4,
       "options": {
@@ -790,6 +1641,210 @@
           "color": {
             "mode": "palette-classic"
           },
+          "decimals": 0,
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "locale"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 49
+      },
+      "id": 28,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "increase(person_endpoint_requests_total[$__range])",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Total de Chamadas API",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          },
+          "unit": "locale"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "{application=\"person-api\", endpoint=\"getPersonById\", environment=\"development\", exported_application=\"person-api\", instance=\"host.docker.internal:8080\", job=\"person-api\"}"
+            },
+            "properties": [
+              {
+                "id": "color"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 49
+      },
+      "id": 29,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "increase(person_endpoint_errors_total[$__range])",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Total de Erros",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "locale"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 49
+      },
+      "id": 14,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "increase(person_endpoint_requests_total[$__range]) - increase(person_endpoint_errors_total[$__range])",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Total de Sucesso",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {
             "axisCenteredZero": false,
             "axisColorMode": "text",
@@ -825,7 +1880,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -868,7 +1924,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 26
+        "y": 53
       },
       "id": 5,
       "options": {
@@ -959,7 +2015,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -970,8 +2027,8 @@
       "gridPos": {
         "h": 9,
         "w": 12,
-        "x": 0,
-        "y": 35
+        "x": 12,
+        "y": 58
       },
       "id": 13,
       "options": {
@@ -1002,9 +2059,156 @@
       ],
       "title": "Quantidade de Chamadas",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "200"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "500"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "500"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 62
+      },
+      "id": 24,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (status)(\r\n  increase(\r\n    http_server_requests_seconds_count{status=~\"200|500\"}[5m]\r\n  )\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Requisições (Sucesso vs Erros)",
+      "type": "timeseries"
     }
   ],
-  "refresh": "",
+  "refresh": false,
   "schemaVersion": 38,
   "style": "dark",
   "tags": [
@@ -1015,13 +2219,13 @@
     "list": []
   },
   "time": {
-    "from": "now-1h",
-    "to": "now"
+    "from": "2026-01-22T18:20:10.318Z",
+    "to": "2026-01-22T18:38:16.709Z"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Person API Dashboard",
   "uid": "person-api-dashboard",
-  "version": 32,
+  "version": 61,
   "weekStart": ""
 }
