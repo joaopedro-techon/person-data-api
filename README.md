@@ -1,3 +1,7 @@
+resilience4j.circuitbreaker.instances.consultas-por-operacao-db.record-exceptions[0]=org.hibernate.exception.JDBCConnectionException
+resilience4j.circuitbreaker.instances.consultas-por-operacao-db.record-exceptions[1]=java.sql.SQLTransientConnectionException
+resilience4j.circuitbreaker.instances.consultas-por-operacao-db.record-exceptions[2]=org.springframework.jdbc.CannotGetJdbcConnectionException
+resilience4j.circuitbreaker.instances.consultas-por-operacao-db.record-exceptions[3]=org.springframework.dao.DataAccessResourceFailureException
 # Person API - Spring Boot com Prometheus e Grafana
 
 Projeto Spring Boot com Java 11 que expõe um endpoint GET para retornar dados de uma pessoa, utilizando Feign para chamadas a API externa mockada com WireMock, e métricas expostas via Prometheus e visualizadas no Grafana.
