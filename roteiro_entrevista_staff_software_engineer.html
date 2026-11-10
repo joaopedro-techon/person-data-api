@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entrevista Técnica — Staff Software Engineer</title>
+<style>
+:root{--bg:#0b1020;--panel:#131c31;--panel2:#192640;--text:#eef3ff;--muted:#a9b8d2;--accent:#78a9ff;--line:#2b3a58;--good:#8cddb2;--warn:#ffd27a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.48 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+.deck{min-height:100vh;display:flex;flex-direction:column}.top{height:8px;background:linear-gradient(90deg,#78a9ff,#9c8cff,#63d6c5);width:100%}
+header{display:flex;justify-content:space-between;align-items:center;padding:14px 4vw;border-bottom:1px solid var(--line);color:var(--muted);font-size:13px}
+main{width:min(1180px,92vw);margin:0 auto;padding:3.5vh 0 2vh;flex:1;display:flex;align-items:center}
+.slide{display:none;width:100%;animation:fade .22s ease}.slide.active{display:block}@keyframes fade{from{opacity:.3;transform:translateY(6px)}to{opacity:1;transform:none}}
+.kicker{color:var(--accent);text-transform:uppercase;letter-spacing:.14em;font-size:12px;font-weight:800;margin-bottom:10px}
+h1{font-size:clamp(36px,5vw,66px);line-height:1.04;margin:0 0 20px;letter-spacing:-.04em}h2{font-size:clamp(29px,3.5vw,46px);line-height:1.08;margin:0 0 18px;letter-spacing:-.03em}h3{font-size:17px;margin:0 0 8px;color:#dce8ff}
+p{color:var(--muted);margin:8px 0 14px}.lead{font-size:clamp(18px,2vw,23px);max-width:850px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:17px 19px;min-width:0}.card p:last-child{margin-bottom:0}
+ul{padding-left:20px;margin:8px 0;color:var(--muted)}li{margin:5px 0}strong{color:var(--text)}
+.tag{display:inline-block;border:1px solid #3c527b;color:#c9dcff;padding:3px 8px;border-radius:20px;font-size:11px;margin:3px 5px 3px 0}
+.question{border-left:3px solid var(--accent);padding:10px 14px;margin:10px 0;background:#101a2d;border-radius:0 10px 10px 0;color:var(--text)}
+.explain{font-size:14px;color:var(--muted)}.signal{font-size:14px}.signal b{color:var(--good)}.redflag b{color:#ff9e9e}
+.small{font-size:12px;color:var(--muted)}.big-number{font-size:34px;font-weight:800;color:var(--accent)}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:12px}th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}th{color:#dce8ff;background:#17233a}td{color:var(--muted)}
+footer{display:flex;align-items:center;gap:14px;padding:15px 4vw;border-top:1px solid var(--line)}
+.controls{display:flex;gap:8px;margin-left:auto}button{background:var(--panel2);border:1px solid #425779;color:var(--text);padding:9px 14px;border-radius:9px;cursor:pointer;font-weight:650}button:hover{border-color:var(--accent)}button:disabled{opacity:.35;cursor:not-allowed}
+.progress{height:4px;background:#1d2a43;flex:1;border-radius:5px;overflow:hidden}.bar{height:100%;background:var(--accent);width:0}
+#counter{min-width:55px;text-align:center;color:var(--muted);font-size:13px}
+.callout{padding:13px 16px;border:1px solid #665633;background:#2a2418;border-radius:12px;color:#ffe2a6;margin-top:15px}
+.pill{color:var(--good);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+@media(max-width:760px){main{padding:24px 0}.grid,.grid.three{grid-template-columns:1fr}.card{padding:14px}header{padding:12px 4vw}footer{gap:8px}.hide-mobile{display:none}}
+@media print{body{background:white;color:#111}.slide{display:block!important;page-break-after:always;padding:20px}.card{background:#f4f6fa;border-color:#ccd3df}.card p,li,td{color:#333}h1,h2,h3,strong{color:#111}header,footer{display:none}main{display:block;width:100%;padding:0}}
+</style>
+</head>
+<body>
+<div class="deck"><div class="top"></div>
+<header><span>GUIA DE ENTREVISTA · STAFF SOFTWARE ENGINEER</span><span class="hide-mobile">Use ← → ou os botões para navegar · N = notas</span></header>
+<main>
+
+<section class="slide active">
+<div class="kicker">Abertura · 60–75 minutos</div>
+<h1>Entrevista técnica<br>Staff Software Engineer</h1>
+<p class="lead">Roteiro para avaliar profundidade em engenharia, arquitetura de sistemas distribuídos, capacidade de decisão e influência técnica.</p>
+<div class="grid three">
+<div class="card"><div class="big-number">15 min</div><h3>Fundamentos</h3><p>Java, JVM, concorrência, algoritmos.</p></div>
+<div class="card"><div class="big-number">25 min</div><h3>Sistemas distribuídos</h3><p>Kafka, AWS, resiliência, consistência.</p></div>
+<div class="card"><div class="big-number">20 min</div><h3>Arquitetura e operação</h3><p>Design, observabilidade, performance, segurança.</p></div>
+</div>
+<p class="small">Reserve 10–15 min para exercício de arquitetura, liderança técnica e perguntas finais. Ajuste o tempo conforme a senioridade demonstrada.</p>
+</section>
+
+<section class="slide">
+<div class="kicker">Como conduzir</div><h2>Não procure apenas respostas certas</h2>
+<div class="grid">
+<div class="card"><h3>Explore o raciocínio</h3><ul><li>Peça exemplos reais e decisões tomadas.</li><li>Pergunte quais alternativas foram descartadas e por quê.</li><li>Peça para explicitar premissas, limites e riscos.</li><li>Introduza uma mudança de requisito e observe a adaptação.</li></ul></div>
+<div class="card"><h3>O que caracteriza Staff</h3><ul><li>Conecta decisões técnicas a impacto de negócio.</li><li>Enxerga o sistema de ponta a ponta.</li><li>Equilibra simplicidade, custo, risco e evolução.</li><li>Eleva a capacidade de outros engenheiros.</li><li>Assume responsabilidade além do próprio código.</li></ul></div>
+</div>
+<div class="callout">Dica: para cada resposta, pergunte “Como você sabe?”, “O que poderia dar errado?” e “Como mediria se funcionou?”.</div>
+</section>
+
+<section class="slide">
+<div class="kicker">01 · Java e JVM</div><h2>Java: da linguagem à execução</h2>
+<div class="grid">
+<div class="card"><h3>Conceitos para avaliar</h3><p class="explain">JVM executa bytecode e administra memória. JIT compila trechos quentes; GC recupera objetos não alcançáveis. Heap guarda objetos; stack mantém frames de execução por thread; metaspace armazena metadados de classes.</p><ul><li>Heap, stack, metaspace e native memory.</li><li>Class loading, JIT e garbage collection.</li><li>Imutabilidade, generics, equals/hashCode.</li><li>Exceções, records, streams e APIs modernas.</li></ul></div>
+<div class="card"><h3>Perguntas</h3><div class="question">Explique o ciclo de execução de uma aplicação Java, do .java até o código em execução.</div><div class="question">Como investigaria um aumento contínuo de memória ou um OutOfMemoryError?</div><div class="question">Quais trade-offs existem entre G1, ZGC e Parallel GC?</div><div class="question">Por que equals() e hashCode() precisam ser consistentes?</div></div>
+</div>
+<p class="signal"><b>Boa resposta:</b> relaciona heap dump, thread dump, GC logs, JFR e métricas; diferencia vazamento de memória de alta alocação; explica impacto de pausas e throughput.</p>
+<p class="signal redflag"><b>Alerta:</b> trata GC como “limpar memória automaticamente” ou recomenda aumentar heap sem diagnóstico.</p>
+</section>
+
+<section class="slide">
+<div class="kicker">02 · Concorrência</div><h2>Concorrência ≠ simultaneidade</h2>
+<div class="grid three">
+<div class="card"><h3>Concorrência</h3><p>Várias tarefas progridem em períodos sobrepostos. Podem alternar na mesma CPU.</p></div>
+<div class="card"><h3>Paralelismo</h3><p>Duas ou mais tarefas executam literalmente ao mesmo tempo, em núcleos diferentes.</p></div>
+<div class="card"><h3>Simultaneidade</h3><p>Termo usado no dia a dia para operações no mesmo intervalo; esclareça o sentido no contexto.</p></div>
+</div>
+<div class="grid">
+<div class="card"><h3>Perguntas</h3><div class="question">Qual a diferença entre processo, thread, concorrência e paralelismo?</div><div class="question">O que são race condition, deadlock, starvation e thread safety?</div><div class="question">Quando usar synchronized, Lock, Atomic e ConcurrentHashMap?</div></div>
+<div class="card"><h3>Java moderno</h3><p class="explain">Virtual threads tornam operações bloqueantes mais escaláveis em workloads I/O-bound. Não tornam CPU mais rápida nem removem limites de banco, APIs ou pools.</p><div class="question">Quando virtual threads ajudam? Quais cuidados com pinning, ThreadLocal e limites de concorrência?</div><div class="question">Como evitar que 10 mil tarefas sobrecarreguem um serviço downstream?</div></div>
+</div>
+<p class="signal"><b>Boa resposta:</b> distingue I/O-bound de CPU-bound, identifica compartilhamento de estado e propõe backpressure/limites explícitos.</p>
+</section>
+
+<section class="slide">
+<div class="kicker">03 · Algoritmos e estruturas de dados</div><h2>Escolher a estrutura certa</h2>
+<div class="grid">
+<div class="card"><h3>Referência rápida</h3><table><tr><th>Estrutura</th><th>Uso típico</th><th>Custo comum</th></tr><tr><td>ArrayList</td><td>Acesso por índice, iteração</td><td>Get O(1), busca O(n)</td></tr><tr><td>LinkedList</td><td>Inserções/rem. com nó conhecido</td><td>Acesso O(n)</td></tr><tr><td>HashMap</td><td>Busca por chave</td><td>Get/put O(1) médio</td></tr><tr><td>TreeMap</td><td>Chaves ordenadas/range</td><td>Get/put O(log n)</td></tr><tr><td>HashSet</td><td>Unicidade e membership</td><td>Contains O(1) médio</td></tr><tr><td>PriorityQueue</td><td>Próximo maior/menor</td><td>Peek O(1), add/poll O(log n)</td></tr></table></div>
+<div class="card"><h3>Perguntas</h3><div class="question">Você precisa consultar milhares de operações por ID. Usaria List ou Map? Por quê?</div><div class="question">Quando uma LinkedList é realmente melhor que ArrayList em Java?</div><div class="question">Como funciona um HashMap? O que acontece com colisões?</div><div class="question">Como identificaria a complexidade de um algoritmo? O que significa O(n log n)?</div><div class="question">Como encontraria os 10 maiores elementos de um fluxo grande?</div></div>
+</div>
+<p class="signal"><b>Boa resposta:</b> fala de complexidade média e pior caso, memória, localidade de cache, ordenação e características reais do workload.</p>
+</section>
+
+<section class="slide">
+<div class="kicker">04 · Kafka</div><h2>Kafka: log distribuído de eventos</h2>
+<div class="grid">
+<div class="card"><h3>Componentes essenciais</h3><ul><li><strong>Broker:</strong> servidor que armazena e entrega registros.</li><li><strong>Topic:</strong> categoria lógica de eventos.</li><li><strong>Partition:</strong> sequência ordenada e unidade de paralelismo.</li><li><strong>Producer:</strong> publica registros; pode escolher chave e confirmação.</li><li><strong>Consumer group:</strong> consumidores dividem partições.</li><li><strong>Offset:</strong> posição de leitura do consumidor.</li><li><strong>Replication:</strong> cópias para tolerância a falhas.</li></ul></div>
+<div class="card"><h3>Perguntas</h3><div class="question">Explique o caminho de uma mensagem do producer ao consumer.</div><div class="question">Como a chave define particionamento e ordenação?</div><div class="question">O que acontece se houver 20 partições e 10 consumidores no mesmo grupo?</div><div class="question">Como tratar duplicidade, reprocessamento, lag e mensagens fora de ordem?</div><div class="question">O que significam acks, idempotent producer e transações?</div></div>
+</div>
+<p class="signal"><b>Boa resposta:</b> sabe que a ordem é garantida dentro da partição, não globalmente; distingue delivery semantics de processamento exatamente uma vez no negócio.</p>
+</section>
+
+<section class="slide">
+<div class="kicker">05 · Kafka versus fila</div><h2>Kafka ou mensageria tradicional?</h2>
+<div class="grid">
+<div class="card"><h3>Kafka</h3><ul><li>Log persistente, retenção por tempo/tamanho.</li><li>Consumidores controlam offsets e podem reler.</li><li>Escala por partições; bom para streaming e múltiplos consumidores.</li><li>Ordenação por partição.</li></ul></div>
+<div class="card"><h3>Fila tradicional (ex.: SQS)</h3><ul><li>Mensagem normalmente é removida após confirmação.</li><li>Entrega orientada a trabalho; consumidores competem.</li><li>Visibilidade, redrive/DLQ e integração gerenciada.</li><li>FIFO pode oferecer ordenação dentro de grupos.</li></ul></div>
+</div>
+<div class="question">Quando escolheria Kafka em vez de SQS? E quando escolheria SQS em vez de Kafka?</div>
+<div class="question">Como projetaria replay, retenção, DLQ, ordenação e idempotência em cada opção?</div>
+<p class="signal"><b>Boa resposta:</b> decide por requisitos de replay, fan-out, throughput, operação, retenção, latência, custo e modelo de consumo — não por preferência pessoal.</p>
+</section>
+
+<section class="slide">
+<div class="kicker">06 · AWS dados e mensageria</div><h2>DynamoDB, SQS e SNS</h2>
+<div class="grid three">
+<div class="card"><h3>DynamoDB</h3><p class="explain">Banco NoSQL distribuído. Modelagem orientada a padrões de acesso, partition key, sort key, índices e capacidade.</p><div class="question">Como modelaria consultas por cliente, status e data? Quando usar GSI?</div><div class="question">O que causa hot partition? Como lidar com consistência e conditional writes?</div></div>
+<div class="card"><h3>SQS</h3><p class="explain">Fila gerenciada para desacoplar produtores e consumidores. Visibility timeout, long polling, DLQ e redrive.</p><div class="question">Como dimensionar concorrência, batch, visibility timeout e DLQ?</div><div class="question">Como garantir idempotência quando a mensagem pode ser entregue novamente?</div></div>
+<div class="card"><h3>SNS</h3><p class="explain">Pub/sub gerenciado para fan-out a múltiplos assinantes, incluindo SQS, Lambda e HTTP.</p><div class="question">Como construir fan-out SNS → várias SQS? Como lidar com falha de um assinante?</div><div class="question">Quando usar SNS + SQS em vez de uma fila única?</div></div>
+</div>
+<p class="signal"><b>Boa resposta:</b> modela DynamoDB pelo acesso, conhece limites e consistência; trata entrega como pelo menos uma vez e desenha DLQ/idempotência.</p>
+</section>
+
+<section class="slide">
+<div class="kicker">07 · AWS compute</div><h2>Lambda: quando usar e quando evitar</h2>
+<div class="grid">
+<div class="card"><h3>Bom encaixe</h3><ul><li>Execução orientada a eventos e workloads intermitentes.</li><li>Processamento curto, stateless e com escala elástica.</li><li>Integrações com S3, EventBridge, SQS, DynamoDB Streams.</li><li>Baixa necessidade de administrar runtime/servidores.</li></ul></div>
+<div class="card"><h3>Avalie alternativas</h3><ul><li>Processamento longo ou contínuo.</li><li>Controle fino de runtime, rede ou recursos.</li><li>Workload estável e intenso em que custo por execução pese.</li><li>Necessidade de conexões persistentes ou estado local.</li><li>Dependência de latência previsível sem cold start.</li></ul></div>
+</div>
+<div class="question">Compare Lambda, ECS Fargate e EKS para um consumidor de mensagens contínuo.</div>
+<div class="question">O que são cold start, concurrency limit, reserved concurrency e throttling?</div>
+<div class="question">Como evitar que o scaling de Lambda derrube o banco de dados?</div>
+<p class="signal"><b>Boa resposta:</b> considera duração, padrão de carga, custo total, limites de concorrência, conexões, observabilidade e operação.</p>
+</section>
+
+<section class="slide">
+<div class="kicker">08 · Resiliência</div><h2>Falhas são parte do sistema</h2>
+<div class="grid">
+<div class="card"><h3>Padrões e finalidade</h3><ul><li><strong>Timeout:</strong> limita espera por uma dependência.</li><li><strong>Retry:</strong> tenta novamente falhas transitórias; usar backoff e jitter.</li><li><strong>Circuit breaker:</strong> interrompe chamadas quando falhas persistem.</li><li><strong>Bulkhead:</strong> isola recursos para conter propagação.</li><li><strong>Rate limit:</strong> limita taxa de chamadas.</li><li><strong>Backpressure:</strong> desacelera entrada quando consumidor não acompanha.</li><li><strong>Fallback:</strong> resposta degradada quando válida para o negócio.</li></ul></div>
+<div class="card"><h3>Perguntas</h3><div class="question">Como protegeria um serviço de uma API downstream instável?</div><div class="question">Qual a diferença entre rate limiter, bulkhead e circuit breaker?</div><div class="question">Quando retry piora uma indisponibilidade? Como evitar retry storm?</div><div class="question">Como definiria timeout entre serviços encadeados?</div><div class="question">Como limitar 2.000 chamadas/s compartilhadas entre 20 instâncias?</div></div>
+</div>
+<p class="signal"><b>Boa resposta:</b> combina timeout, retry seletivo, backoff+jitter, limite de concorrência e orçamento de latência; entende que retries multiplicam carga.</p>
+</section>
+
+<section class="slide">
+<div class="kicker">09 · Arquitetura e padrões</div><h2>Arquitetura: escolhas com consequências</h2>
+<div class="grid">
+<div class="card"><h3>Conceitos</h3><ul><li>Monólito modular, microsserviços e arquitetura hexagonal.</li><li>DDD: bounded context, aggregate e linguagem ubíqua.</li><li>Event-driven: produtores e consumidores desacoplados por eventos.</li><li>Event sourcing: eventos são fonte de verdade; estado é reconstruído/projetado.</li><li>CQRS: separa modelos de leitura e escrita.</li><li>Outbox: publica eventos de forma confiável junto à transação local.</li></ul></div>
+<div class="card"><h3>Perguntas</h3><div class="question">Quando você não criaria um microsserviço?</div><div class="question">Explique Event-Driven Architecture versus Event Sourcing.</div><div class="question">Como evitar dual write entre banco e Kafka?</div><div class="question">Quais custos e riscos CQRS/Event Sourcing introduzem?</div><div class="question">Como definir limites de domínio e propriedade dos dados?</div></div>
+</div>
+<p class="signal"><b>Boa resposta:</b> não aplica padrões por moda; explica consistência eventual, evolução de schema, replay, versionamento, operação e complexidade cognitiva.</p>
+</section>
+
+<section class="slide">
+<div class="kicker">10 · Sistemas distribuídos</div><h2>Consistência, disponibilidade e contratos</h2>
+<div class="grid">
+<div class="card"><h3>Conceitos importantes</h3><ul><li>Consistência forte versus eventual.</li><li>CAP em presença de partição de rede; não é uma escolha simples e permanente entre três letras.</li><li>Idempotência e deduplicação.</li><li>At-least-once, at-most-once e exactly-once.</li><li>Clock skew, ordenação, retries e operações compensatórias.</li><li>API versioning, compatibilidade e schema evolution.</li></ul></div>
+<div class="card"><h3>Perguntas</h3><div class="question">Como garantir que uma liquidação não seja executada duas vezes?</div><div class="question">Como lidar com uma transação que atualiza dois serviços?</div><div class="question">Quando aceitar consistência eventual? Como comunicar isso ao negócio?</div><div class="question">Como evoluir um evento consumido por dezenas de equipes?</div></div>
+</div>
+<p class="signal"><b>Boa resposta:</b> define invariantes de negócio, fronteiras transacionais, chaves idempotentes, compensação e contratos compatíveis.</p>
+</section>
+
+<section class="slide">
+<div class="kicker">11 · Observabilidade</div><h2>Métricas, logs e traces</h2>
+<div class="grid three">
+<div class="card"><h3>Métricas</h3><p>Valores numéricos agregados ao longo do tempo. Ex.: taxa de erro, throughput, latência p95/p99, saturação e lag.</p></div>
+<div class="card"><h3>Logs</h3><p>Registros de eventos com contexto. Devem ser estruturados, pesquisáveis e sem dados sensíveis.</p></div>
+<div class="card"><h3>Traces</h3><p>Rastreiam uma requisição entre serviços por spans, mostrando latência e dependências.</p></div>
+</div>
+<div class="question">Uma API ficou lenta. Como você investigaria usando métricas, logs e traces?</div>
+<div class="question">Quais RED e USE? O que mediria para um consumidor Kafka/SQS?</div>
+<div class="question">Como controlar cardinalidade e custo de observabilidade?</div>
+<div class="question">Como garantir correlação de trace e contexto assíncrono?</div>
+<p class="signal"><b>Boa resposta:</b> começa pelo impacto percebido, segmenta por endpoint/dependência, correlaciona sinais e define SLI/SLO/error budget.</p>
+</section>
+
+<section class="slide">
+<div class="kicker">12 · Performance e capacidade</div><h2>Medir antes de otimizar</h2>
+<div class="grid">
+<div class="card"><h3>O que avaliar</h3><ul><li>Latência média, p95/p99 e throughput.</li><li>CPU, memória, alocação, GC e I/O.</li><li>Pool de conexões, filas, locks e saturação.</li><li>Cache, batch, paginação e limites de payload.</li><li>Load test, stress test, soak test e capacity planning.</li></ul></div>
+<div class="card"><h3>Perguntas</h3><div class="question">Uma aplicação atende 1.000 TPS com p99 alto. Como investigaria?</div><div class="question">Como diferenciar gargalo de CPU, rede, banco e contenção?</div><div class="question">Como dimensionaria pool de threads e conexões?</div><div class="question">Quando cache ajuda e quando cria inconsistência ou sobrecarga?</div><div class="question">Como projetar um teste de carga representativo?</div></div>
+</div>
+<p class="signal"><b>Boa resposta:</b> usa profiling e teste reproduzível, procura gargalo dominante, mede antes/depois e considera efeito em cascata.</p>
+</section>
+
+<section class="slide">
+<div class="kicker">13 · Segurança e engenharia</div><h2>Segurança, qualidade e entrega</h2>
+<div class="grid">
+<div class="card"><h3>Temas essenciais</h3><ul><li>IAM least privilege, roles e credenciais temporárias.</li><li>Criptografia em trânsito/repouso, KMS e gestão de segredos.</li><li>Autenticação, autorização, OWASP Top 10.</li><li>Testes unitários, integração, contrato e resiliência.</li><li>CI/CD, rollback, canary/blue-green e feature flags.</li><li>IaC, revisão de mudanças e supply chain.</li></ul></div>
+<div class="card"><h3>Perguntas</h3><div class="question">Como desenharia permissões AWS seguindo least privilege?</div><div class="question">Como reduzir risco de deploy em um sistema crítico?</div><div class="question">O que deve ser testado em unidade, integração e contrato?</div><div class="question">Como gerenciar segredos e dados sensíveis em logs?</div><div class="question">Como equilibrar velocidade de entrega e qualidade?</div></div>
+</div>
+<p class="signal"><b>Boa resposta:</b> trata segurança e operabilidade como requisitos de arquitetura, não como etapas finais.</p>
+</section>
+
+<section class="slide">
+<div class="kicker">14 · Exercício prático</div><h2>System design: plataforma de processamento</h2>
+<p class="lead">Peça ao candidato para desenhar uma solução para receber e processar 1.000 eventos por segundo, persistir o resultado e permitir consulta por cliente.</p>
+<div class="grid">
+<div class="card"><h3>Requisitos para apresentar</h3><ul><li>Eventos chegam por API ou mensageria.</li><li>Processamento pode falhar e ser repetido.</li><li>Consultas precisam responder rapidamente.</li><li>Picos de volume podem durar vários minutos.</li><li>Uma dependência externa tem limite de taxa.</li><li>É necessário rastrear cada evento ponta a ponta.</li></ul></div>
+<div class="card"><h3>Peça para ele cobrir</h3><ul><li>Diagrama de componentes e fluxo.</li><li>Kafka ou SQS? Justifique.</li><li>Banco e modelo de dados.</li><li>Escala, particionamento e backpressure.</li><li>Idempotência, retry, DLQ e recuperação.</li><li>Observabilidade, segurança e custo.</li></ul></div>
+</div>
+<div class="callout">Durante o exercício, introduza uma falha: “O banco ficou lento e a fila começou a crescer. O que acontece e como o sistema se protege?”</div>
+</section>
+
+<section class="slide">
+<div class="kicker">15 · Liderança técnica Staff</div><h2>Influência além do código</h2>
+<div class="grid">
+<div class="card"><h3>Perguntas comportamentais</h3><div class="question">Conte uma decisão arquitetural difícil que você liderou. Quais opções avaliou?</div><div class="question">Como lida com discordância técnica entre especialistas?</div><div class="question">Como influencia equipes que não respondem diretamente a você?</div><div class="question">Conte um incidente relevante: como conduziu diagnóstico, mitigação e prevenção?</div><div class="question">Como identifica e reduz dívida técnica sem paralisar entregas?</div></div>
+<div class="card"><h3>O que procurar</h3><ul><li>Comunicação clara e adaptada ao público.</li><li>Decisão baseada em evidências e trade-offs.</li><li>Capacidade de alinhar várias equipes.</li><li>Mentoria e multiplicação de conhecimento.</li><li>Ownership, pragmatismo e humildade intelectual.</li><li>Impacto mensurável, não apenas atividade.</li></ul></div>
+</div>
+<p class="signal"><b>Boa resposta:</b> apresenta contexto, opções, decisão, consequências e aprendizado; reconhece contribuições de outras pessoas.</p>
+</section>
+
+<section class="slide">
+<div class="kicker">16 · Perguntas de aprofundamento</div><h2>Como separar domínio real de discurso decorado</h2>
+<div class="grid">
+<div class="card"><h3>Use estas provocações</h3><ul><li>“Qual foi o maior trade-off dessa decisão?”</li><li>“O que você faria diferente hoje?”</li><li>“Qual métrica comprovou o resultado?”</li><li>“Como isso falha em produção?”</li><li>“Qual é o limite dessa solução?”</li><li>“Como migraria sem downtime?”</li><li>“O que muda se o volume crescer 10 vezes?”</li></ul></div>
+<div class="card"><h3>Sinais de alerta</h3><ul><li>Respostas absolutas: “sempre” ou “nunca”.</li><li>Escolhe tecnologia sem requisitos.</li><li>Ignora falhas parciais e duplicidade.</li><li>Confunde throughput com latência.</li><li>Não sabe explicar como operou o que projetou.</li><li>Fala de liderança sem exemplos concretos.</li></ul></div>
+</div>
+</section>
+
+<section class="slide">
+<div class="kicker">17 · Avaliação</div><h2>Matriz de avaliação do candidato</h2>
+<p>Preencha a nota de 1 a 5 por dimensão. Use evidências observadas, não impressão geral.</p>
+<table><tr><th>Dimensão</th><th>O que avaliar</th><th>Nota</th></tr>
+<tr><td>Java / JVM / concorrência</td><td>Fundamentos, diagnóstico, execução e segurança concorrente.</td><td>___ / 5</td></tr>
+<tr><td>Algoritmos / estruturas</td><td>Complexidade, escolha de estruturas e pragmatismo.</td><td>___ / 5</td></tr>
+<tr><td>Mensageria / sistemas distribuídos</td><td>Kafka, filas, consistência, idempotência e falhas.</td><td>___ / 5</td></tr>
+<tr><td>AWS / cloud</td><td>Serviços, limites, segurança, custo e operação.</td><td>___ / 5</td></tr>
+<tr><td>Arquitetura</td><td>Trade-offs, evolução, simplicidade e visão sistêmica.</td><td>___ / 5</td></tr>
+<tr><td>Resiliência / performance</td><td>Capacidade, proteção de dependências e diagnóstico.</td><td>___ / 5</td></tr>
+<tr><td>Observabilidade / operação</td><td>SLI/SLO, métricas, logs, traces e incidentes.</td><td>___ / 5</td></tr>
+<tr><td>Influência / liderança</td><td>Comunicação, alinhamento, mentoria e ownership.</td><td>___ / 5</td></tr>
+</table>
+<p class="small">Escala: 1 = insuficiente · 2 = abaixo do esperado · 3 = adequado · 4 = forte · 5 = referência.</p>
+</section>
+
+<section class="slide">
+<div class="kicker">18 · Decisão</div><h2>Critério para contratar como par Staff</h2>
+<div class="grid">
+<div class="card"><h3>Recomendação forte</h3><ul><li>Profundidade técnica em mais de um domínio.</li><li>Explica trade-offs sem dogmatismo.</li><li>Conecta arquitetura a impacto operacional e negócio.</li><li>Eleva o nível de outras equipes.</li><li>Reconhece incertezas e valida hipóteses.</li></ul></div>
+<div class="card"><h3>Investigue antes de aprovar</h3><ul><li>Excelente executor, mas pouca influência transversal.</li><li>Boa teoria, poucos exemplos de produção.</li><li>Especialista em uma tecnologia, visão limitada do todo.</li><li>Propõe soluções complexas sem justificar custo.</li><li>Não demonstra ownership de incidentes.</li></ul></div>
+</div>
+<div class="callout">Para um par Staff, eu daria peso especial a arquitetura, sistemas distribuídos, capacidade de diagnóstico e influência técnica. Não é necessário saber tudo; é essencial saber raciocinar, investigar e tomar boas decisões.</div>
+</section>
+
+<section class="slide">
+<div class="kicker">Encerramento</div><h2>Últimas perguntas ao candidato</h2>
+<div class="question">Qual problema técnico mais complexo você gostaria de resolver no próximo desafio?</div>
+<div class="question">Em quais temas você considera que ainda precisa evoluir?</div>
+<div class="question">O que você espera de outro Staff Engineer trabalhando como seu par?</div>
+<div class="question">Que perguntas você tem sobre arquitetura, desafios e maturidade técnica do nosso ambiente?</div>
+<p class="lead">Avalie não apenas o que o candidato sabe, mas como pensa, aprende, influencia e assume responsabilidade.</p>
+</section>
+
+</main>
+<footer><span id="counter">1 / 19</span><div class="progress"><div class="bar" id="bar"></div></div><div class="controls"><button id="prev" aria-label="Slide anterior">← Voltar</button><button id="next">Próximo →</button></div></footer>
+</div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];let index=0;
+function show(n){index=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,i)=>s.classList.toggle('active',i===index));document.getElementById('counter').textContent=`${index+1} / ${slides.length}`;document.getElementById('bar').style.width=`${(index+1)/slides.length*100}%`;document.getElementById('prev').disabled=index===0;document.getElementById('next').disabled=index===slides.length-1;}
+document.getElementById('prev').onclick=()=>show(index-1);document.getElementById('next').onclick=()=>show(index+1);
+document.addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(index+1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(index-1)}if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1)});
+show(0);
+</script>
+</body></html>
